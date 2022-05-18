@@ -20,7 +20,7 @@ import (
 // @title API Jasa Pengiriman
 // @version 1.0
 // @description Berikut API Jasa Pengiriman
-// @host localhost:8080
+// @host 18.139.225.163:8080
 // @BasePath /
 func main() {
 	config := config.GetConfig()
