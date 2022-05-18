@@ -1,0 +1,522 @@
+basePath: /
+definitions:
+  admin.Admin:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - username
+    type: object
+  admin.AdminSwagger:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - username
+    type: object
+  admin.InputAdminToken:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  covid.Input_Detail_covid:
+    properties:
+      alamat:
+        type: string
+      covid:
+        type: boolean
+      nama:
+        type: string
+      rumah_sakit_id:
+        type: integer
+    type: object
+  covid.Input_Rumah_sakit:
+    properties:
+      alamat:
+        type: string
+      nama_rumah_sakit:
+        type: string
+    type: object
+  covid.Res_Detail_covid:
+    properties:
+      alamat:
+        type: string
+      covid:
+        type: boolean
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      nama:
+        type: string
+      rumah_sakit:
+        $ref: '#/definitions/covid.Res_Rumah_sakit'
+      rumah_sakit_id:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  covid.Res_Rumah_sakit:
+    properties:
+      alamat:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      nama_rumah_sakit:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Berikut API Jasa Pengiriman
+  title: API Jasa Pengiriman
+  version: "1.0"
+paths:
+  /admin:
+    get:
+      consumes:
+      - application/json
+      description: Get all admin with data
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/admin.Admin'
+            type: array
+      summary: Get All admin
+      tags:
+      - AdminJWT
+    post:
+      consumes:
+      - application/json
+      description: create admin with data
+      parameters:
+      - description: admin
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/admin.AdminSwagger'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/admin.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Create admin
+      tags:
+      - admin
+  /admin/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete data admin
+      parameters:
+      - description: id admin
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ""
+      summary: Delete Admin
+      tags:
+      - admin
+    get:
+      consumes:
+      - application/json
+      description: Get Admin By ID
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/admin.Admin'
+      summary: Get Admin By ID
+      tags:
+      - admin
+    put:
+      consumes:
+      - application/json
+      description: update data admin
+      parameters:
+      - description: id admin
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: admin
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/admin.AdminSwagger'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ""
+      summary: Update Admin
+      tags:
+      - AdminJWT
+  /admin/token:
+    post:
+      consumes:
+      - application/json
+      description: Get token for admin
+      parameters:
+      - description: admin
+        in: body
+        name: admin
+        required: true
+        schema:
+          $ref: '#/definitions/admin.InputAdminToken'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ""
+      summary: Get Token
+      tags:
+      - admin
+  /covid:
+    get:
+      consumes:
+      - application/json
+      description: Get All Data Pasien with data
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/covid.Res_Detail_covid'
+            type: array
+      summary: Get All Data Pasien
+      tags:
+      - Pasien
+    post:
+      consumes:
+      - application/json
+      description: Create data pasien
+      parameters:
+      - description: covid
+        in: body
+        name: pasien
+        required: true
+        schema:
+          $ref: '#/definitions/covid.Input_Detail_covid'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Detail_covid'
+      summary: Create data pasien
+      tags:
+      - Pasien
+  /covid/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data pasien
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Detail_covid'
+      summary: Delete data pasien
+      tags:
+      - Pasien
+    get:
+      consumes:
+      - application/json
+      description: Get Data Pasien By ID
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Detail_covid'
+      summary: Get Data Pasien By ID
+      tags:
+      - Pasien
+    put:
+      consumes:
+      - application/json
+      description: Update data pasien
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: covid
+        in: body
+        name: pasien
+        required: true
+        schema:
+          $ref: '#/definitions/covid.Input_Detail_covid'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Detail_covid'
+      summary: Update data pasien
+      tags:
+      - Pasien
+  /hospital:
+    get:
+      consumes:
+      - application/json
+      description: Get all data rumah sakit with data
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/covid.Res_Rumah_sakit'
+            type: array
+      summary: Get all data rumah sakit
+      tags:
+      - Pasien
+    post:
+      consumes:
+      - application/json
+      description: Create data rumah sakit
+      parameters:
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: hospital
+        in: body
+        name: rumah_sakit
+        required: true
+        schema:
+          $ref: '#/definitions/covid.Input_Rumah_sakit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Rumah_sakit'
+      summary: Create data rumah sakit
+      tags:
+      - Pasien
+  /hospital/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data rumah sakit
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Rumah_sakit'
+      summary: Delete data rumah sakit
+      tags:
+      - Pasien
+    get:
+      consumes:
+      - application/json
+      description: Get all data rumah sakit with data
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Rumah_sakit'
+      summary: Get data rumah sakit by id
+      tags:
+      - Pasien
+    put:
+      consumes:
+      - application/json
+      description: Update data rumah sakit
+      parameters:
+      - description: anything id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: hospital
+        in: body
+        name: rumah_sakit
+        required: true
+        schema:
+          $ref: '#/definitions/covid.Input_Rumah_sakit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/covid.Res_Rumah_sakit'
+      summary: Update data rumah sakit
+      tags:
+      - Pasien
+swagger: "2.0"
