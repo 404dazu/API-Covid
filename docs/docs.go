@@ -787,7 +787,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "18.139.225.163:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "API Jasa Pengiriman",
